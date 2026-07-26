@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dmg3mu7jjyt5f"]
+
+[ext_resource type="Script" uid="uid://b3ekwgdpdhysw" path="res://mob/mob.gd" id="1_6jlfs"]
+[ext_resource type="PackedScene" uid="uid://bx7src8iafhan" path="res://mob/bat/bat_model.tscn" id="2_6jlfs"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_68x75"]
+radius = 0.68065256
+
+[node name="Bat" type="RigidBody3D" unique_id=1944519736]
+gravity_scale = 0.0
+script = ExtResource("1_6jlfs")
+
+[node name="bat_model" parent="." unique_id=1638982900 instance=ExtResource("2_6jlfs")]
+unique_name_in_owner = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1718142571]
+shape = SubResource("SphereShape3D_68x75")

@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://btpvguksscp2f"]
+
+[ext_resource type="PackedScene" uid="uid://cbretcofbhvhx" path="res://player/simple_gun/gun_model.glb" id="1_oul6g"]
+[ext_resource type="Script" uid="uid://ddfbvh7re5rox" path="res://player/player.gd" id="1_rkbax"]
+[ext_resource type="Texture2D" uid="uid://d2fhv710j0bkl" path="res://player/reticle.png" id="3_g1dw6"]
+[ext_resource type="AudioStream" uid="uid://bp1m2kk5p0hk3" path="res://player/gun_shoot.wav" id="4_yw30f"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_68x75"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_68x75"]
+
+[node name="Player" type="CharacterBody3D" unique_id=1909885556]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+collision_mask = 3
+script = ExtResource("1_rkbax")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=663109789]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_68x75")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=462544433]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_68x75")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=804463500]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6402228, -0.06475836)
+
+[node name="gun_model" parent="Camera3D" unique_id=1749500020 instance=ExtResource("1_oul6g")]
+transform = Transform3D(-0.6529407, 0, 0.07138238, 0, 0.6568312, 0, -0.07138238, 0, -0.6529407, 0.6350553, -0.4316584, -0.9375568)
+
+[node name="BulletMarker" type="Marker3D" parent="Camera3D" unique_id=975025211]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.66244173, -0.42399335, -1.3775742)
+
+[node name="Reticle" type="TextureRect" parent="." unique_id=766418249]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -13.0
+offset_top = -13.0
+offset_right = 13.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_g1dw6")
+expand_mode = 1
+
+[node name="ShootTimer" type="Timer" parent="." unique_id=1947763020]
+unique_name_in_owner = true
+wait_time = 0.2
+one_shot = true
+
+[node name="ShootSound" type="AudioStreamPlayer" parent="." unique_id=1033951537]
+unique_name_in_owner = true
+stream = ExtResource("4_yw30f")

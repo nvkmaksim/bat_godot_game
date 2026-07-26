@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://dvs388tkgpbr4"]
+
+[ext_resource type="PackedScene" uid="uid://cfdgqjjlflyom" path="res://mob/spawner/spawner_model.glb" id="1_t8boo"]
+[ext_resource type="Shader" uid="uid://cfnwyva3u4qeb" path="res://mob/spawner/spawner_halo.gdshader" id="2_l1cud"]
+[ext_resource type="Material" uid="uid://bh1ego7bi1olb" path="res://mob/spawner/spawner_screen_material.tres" id="3_bk78j"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bk78j"]
+render_priority = 0
+shader = ExtResource("2_l1cud")
+shader_parameter/color = Color(0.5615831, 0.5978826, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bk78j"]
+albedo_color = Color(0.837199, 0.3867437, 1, 1)
+metallic = 0.35
+roughness = 0.15
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p6j4b"]
+albedo_color = Color(0, 0, 0, 1)
+metallic = 1.0
+roughness = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lvlhh"]
+albedo_color = Color(0.83889705, 0.83889705, 0.838897, 1)
+metallic = 0.6
+roughness = 0.08
+
+[sub_resource type="Animation" id="Animation_lvlhh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Top:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p6j4b"]
+_data = {
+&"RESET": SubResource("Animation_lvlhh")
+}
+
+[sub_resource type="Animation" id="Animation_l1cud"]
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Top:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 25.132742, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -6.2831855, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yhm21"]
+_data = {
+&"idle": SubResource("Animation_l1cud")
+}
+
+[node name="spawner_model" unique_id=1237235029 instance=ExtResource("1_t8boo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5978858, 0)
+
+[node name="halo" parent="." index="0" unique_id=1021186368]
+material_override = SubResource("ShaderMaterial_bk78j")
+
+[node name="Body" parent="." index="1" unique_id=1638880425]
+surface_material_override/0 = SubResource("StandardMaterial3D_bk78j")
+surface_material_override/1 = ExtResource("3_bk78j")
+surface_material_override/2 = SubResource("StandardMaterial3D_p6j4b")
+
+[node name="Top" parent="." index="2" unique_id=69386403]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0.78395706, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_lvlhh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3" unique_id=1173251074]
+libraries/ = SubResource("AnimationLibrary_p6j4b")
+libraries/custom = SubResource("AnimationLibrary_yhm21")
+autoplay = &"custom/idle"
